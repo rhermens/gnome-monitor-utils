@@ -1,0 +1,10 @@
+{
+    "name": "Monitor utils",
+    "description": "Keybindings for GNOME monitors inspired by i3",
+    "uuid": "monitor-utils@rhermens.github.com",
+    "url": "https://github.com/rhermens/gnome-monitor-utils",
+    "settings-schema": "org.gnome.shell.extensions.monitor-utils",
+    "shell-version": [
+        "47"
+    ]
+}

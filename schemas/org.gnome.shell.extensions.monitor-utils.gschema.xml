@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemalist>
+    <schema id="org.gnome.shell.extensions.monitor-utils" path="/org/gnome/shell/extensions/monitor-utils/">
+        <key name="secondary-monitor" type="i">
+            <default>0</default>
+            <summary></summary>
+            <description>Target monitor</description>
+        </key>
+        <key name="swap-monitors-keybind" type="as">
+            <default><![CDATA[['<Super><Shift>S']]]></default>
+            <summary>Swap monitor keybind</summary>
+        </key>
+    </schema>
+</schemalist>
