@@ -10,5 +10,17 @@
             <default><![CDATA[['<Super><Shift>S']]]></default>
             <summary>Swap monitor keybind</summary>
         </key>
+        <key name="move-focus-left-keybind" type="as">
+            <default><![CDATA[['<Super>H']]]></default>
+            <summary>Move focus monitor to the left</summary>
+        </key>
+        <key name="move-focus-right-keybind" type="as">
+            <default><![CDATA[['<Super>L']]]></default>
+            <summary>Move focus monitor to the right</summary>
+        </key>
+        <key name="pointer-follows-focus" type="b">
+            <default>true</default>
+            <summary>Pointer follows focus</summary>
+        </key>
     </schema>
 </schemalist>
