@@ -1,6 +1,7 @@
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import Gio from "gi://Gio";
+import GLib from "gi://GLib";
 import GObject from "gi://GObject";
 import Adw from "gi://Adw";
 import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
@@ -52,33 +53,30 @@ export default class MonitorUtilsPreferences extends ExtensionPreferences {
 
         const swapMonitorsKeybind = new Adw.EntryRow({
             title: 'Swap Monitors',
+            text: this._settings?.get_strv('swap-monitors-keybind')[0],
+            show_apply_button: true,
+        });
+        swapMonitorsKeybind.connect('apply', () => {
+            this._settings?.set_strv('swap-monitors-keybind', [swapMonitorsKeybind.text]);
         });
 
         const moveFocusLeftKeybind = new Adw.EntryRow({
             title: 'Move focus left',
+            text: this._settings?.get_strv('move-focus-left-keybind')[0],
+            show_apply_button: true,
         });
-        const moveFocusRightKeybind = new Adw.EntryRow({
-            title: 'Move focus right',
+        moveFocusLeftKeybind.connect('apply', () => {
+            this._settings?.set_strv('move-focus-left-keybind', [moveFocusLeftKeybind.text]);
         });
 
-        this._settings!.bind(
-            'swap-monitors-keybind',
-            swapMonitorsKeybind,
-            'text',
-            Gio.SettingsBindFlags.DEFAULT,
-        );
-        this._settings!.bind(
-            'move-focus-left-keybind',
-            moveFocusLeftKeybind,
-            'text',
-            Gio.SettingsBindFlags.DEFAULT,
-        );
-        this._settings!.bind(
-            'move-focus-right-keybind',
-            moveFocusRightKeybind,
-            'text',
-            Gio.SettingsBindFlags.DEFAULT,
-        );
+        const moveFocusRightKeybind = new Adw.EntryRow({
+            title: 'Move focus right',
+            text: this._settings?.get_strv('move-focus-right-keybind')[0],
+            show_apply_button: true,
+        });
+        moveFocusRightKeybind.connect('apply', () => {
+            this._settings?.set_strv('move-focus-right-keybind', [moveFocusRightKeybind.text]);
+        });
 
         keybindPreferenceGroup.add(swapMonitorsKeybind);
         keybindPreferenceGroup.add(moveFocusLeftKeybind);
@@ -110,3 +108,32 @@ export default class MonitorUtilsPreferences extends ExtensionPreferences {
         return monitorPreferencesGroup;
     }
 }
+
+const KeybindingRow = GObject.registerClass(
+    {
+        Properties: {
+            'value': GObject.ParamSpec.string('value', 'Value', 'Value', GObject.ParamFlags.READWRITE, ''),
+        }
+    }, 
+    class KeybindingRow extends Adw.ActionRow {
+        private _value!: string;
+
+        constructor(params: object) {
+            super(params);
+
+            const button = new Gtk.Button();
+            console.log(this);
+        }
+
+        get value() {
+            console.log(`Getter ${this._value}`);
+            return this._value;
+        }
+
+        set value(value: string) {
+            console.log(`Setter ${value}`);
+            this._value = value;
+            this.notify('value');
+        }
+    }
+)
