@@ -4,6 +4,7 @@ import Shell from 'gi://Shell';
 import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js'
 import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
+import { KeybindSettings } from "./settings.js";
 
 export default class MonitorUtilsExtension extends Extension {
     private _settings?: Gio.Settings;
@@ -24,7 +25,7 @@ export default class MonitorUtilsExtension extends Extension {
         }
 
         Main.wm.addKeybinding(
-            'swap-monitors-keybind',
+            KeybindSettings.SwapMonitors,
             this._settings,
             Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
             Shell.ActionMode.NORMAL,
@@ -32,7 +33,7 @@ export default class MonitorUtilsExtension extends Extension {
         );
 
         Main.wm.addKeybinding(
-            'move-focus-left-keybind',
+            KeybindSettings.MoveFocusLeft,
             this._settings,
             Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
             Shell.ActionMode.NORMAL,
@@ -40,7 +41,7 @@ export default class MonitorUtilsExtension extends Extension {
         );
 
         Main.wm.addKeybinding(
-            'move-focus-right-keybind',
+            KeybindSettings.MoveFocusRight,
             this._settings,
             Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
             Shell.ActionMode.NORMAL,
@@ -76,9 +77,9 @@ export default class MonitorUtilsExtension extends Extension {
     }
 
     disable(): void {
-        Main.wm.removeKeybinding('swap-monitors-keybind');
-        Main.wm.removeKeybinding('move-focus-left-keybind');
-        Main.wm.removeKeybinding('move-focus-right-keybind');
+        Main.wm.removeKeybinding(KeybindSettings.SwapMonitors);
+        Main.wm.removeKeybinding(KeybindSettings.MoveFocusLeft);
+        Main.wm.removeKeybinding(KeybindSettings.MoveFocusRight);
         
         if (this.focusConnection) {
             global.display.disconnect(this.focusConnection);

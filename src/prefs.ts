@@ -4,6 +4,7 @@ import Gio from "gi://Gio";
 import GObject from "gi://GObject";
 import Adw from "gi://Adw";
 import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
+import { KeybindSettings } from './settings.js';
 
 export default class MonitorUtilsPreferences extends ExtensionPreferences {
     private _settings?: Gio.Settings;
@@ -52,29 +53,29 @@ export default class MonitorUtilsPreferences extends ExtensionPreferences {
 
         const swapMonitorsKeybind = new Adw.EntryRow({
             title: 'Swap Monitors',
-            text: this._settings?.get_strv('swap-monitors-keybind')[0],
+            text: this._settings?.get_strv(KeybindSettings.SwapMonitors)[0],
             show_apply_button: true,
         });
         swapMonitorsKeybind.connect('apply', () => {
-            this._settings?.set_strv('swap-monitors-keybind', [swapMonitorsKeybind.text]);
+            this._settings?.set_strv(KeybindSettings.SwapMonitors, [swapMonitorsKeybind.text]);
         });
 
         const moveFocusLeftKeybind = new Adw.EntryRow({
             title: 'Move focus left',
-            text: this._settings?.get_strv('move-focus-left-keybind')[0],
+            text: this._settings?.get_strv(KeybindSettings.MoveFocusLeft)[0],
             show_apply_button: true,
         });
         moveFocusLeftKeybind.connect('apply', () => {
-            this._settings?.set_strv('move-focus-left-keybind', [moveFocusLeftKeybind.text]);
+            this._settings?.set_strv(KeybindSettings.MoveFocusLeft, [moveFocusLeftKeybind.text]);
         });
 
         const moveFocusRightKeybind = new Adw.EntryRow({
             title: 'Move focus right',
-            text: this._settings?.get_strv('move-focus-right-keybind')[0],
+            text: this._settings?.get_strv(KeybindSettings.MoveFocusRight)[0],
             show_apply_button: true,
         });
         moveFocusRightKeybind.connect('apply', () => {
-            this._settings?.set_strv('move-focus-right-keybind', [moveFocusRightKeybind.text]);
+            this._settings?.set_strv(KeybindSettings.MoveFocusRight, [moveFocusRightKeybind.text]);
         });
 
         keybindPreferenceGroup.add(swapMonitorsKeybind);
