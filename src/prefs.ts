@@ -1,7 +1,6 @@
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import Gio from "gi://Gio";
-import GLib from "gi://GLib";
 import GObject from "gi://GObject";
 import Adw from "gi://Adw";
 import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
@@ -108,32 +107,3 @@ export default class MonitorUtilsPreferences extends ExtensionPreferences {
         return monitorPreferencesGroup;
     }
 }
-
-const KeybindingRow = GObject.registerClass(
-    {
-        Properties: {
-            'value': GObject.ParamSpec.string('value', 'Value', 'Value', GObject.ParamFlags.READWRITE, ''),
-        }
-    }, 
-    class KeybindingRow extends Adw.ActionRow {
-        private _value!: string;
-
-        constructor(params: object) {
-            super(params);
-
-            const button = new Gtk.Button();
-            console.log(this);
-        }
-
-        get value() {
-            console.log(`Getter ${this._value}`);
-            return this._value;
-        }
-
-        set value(value: string) {
-            console.log(`Setter ${value}`);
-            this._value = value;
-            this.notify('value');
-        }
-    }
-)
